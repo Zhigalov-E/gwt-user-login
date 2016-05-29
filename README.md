@@ -1,6 +1,6 @@
 GWT Maven User Auth
 ===================
-[![Build Status](https://travis-ci.org/Zhigalov-E/gwt-user-auth.svg?branch=master)](https://travis-ci.org/Zhigalov-E/gwt-user-auth)
+[![Build Status](https://travis-ci.org/Zhigalov-E/gwt-user-login.svg?branch=master)](https://travis-ci.org/Zhigalov-E/gwt-user-login)
 Overview
 --------
 
