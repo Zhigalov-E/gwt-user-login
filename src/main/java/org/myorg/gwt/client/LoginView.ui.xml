@@ -1,0 +1,53 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:gwt='urn:import:com.google.gwt.user.client.ui'>
+
+    <ui:with type="org.myorg.gwt.client.LoginResources" field="res"/>
+    <ui:with type="org.myorg.gwt.client.i18n.AppMessages" field="i18n"/>
+
+    <ui:style>
+
+    </ui:style>
+    <gwt:HTMLPanel>
+        <div class="{res.style.loginForm}">
+            <gwt:VerticalPanel>
+                <gwt:Grid styleName="{res.style.blackText}">
+                    <gwt:row>
+                        <gwt:customCell>
+                            <gwt:Label text="{i18n.login}" styleName="{res.style.blackText}"/>
+                        </gwt:customCell>
+                        <gwt:customCell>
+                            <gwt:TextBox ui:field="loginBox" styleName="{res.style.box}"/>
+                        </gwt:customCell>
+                    </gwt:row>
+                    <gwt:row>
+                        <gwt:customCell>
+                            <gwt:Label text="{i18n.password}" styleName="{res.style.blackText}"/>
+                        </gwt:customCell>
+                        <gwt:customCell>
+                            <gwt:PasswordTextBox ui:field="passwordBox" styleName="{res.style.box}"/>
+                        </gwt:customCell>
+                    </gwt:row>
+                    <gwt:row>
+                        <gwt:cell></gwt:cell>
+                        <gwt:customCell>
+                            <gwt:Button ui:field="buttonSubmit" text="{i18n.submitBtn}"
+                                        styleName="{res.style.loginButton}">
+                            </gwt:Button>
+                        </gwt:customCell>
+                    </gwt:row>
+
+
+                </gwt:Grid>
+                <gwt:Label ui:field="completionLabel1"
+                           styleName="{res.style.blackText}"/>
+                <gwt:Label ui:field="completionLabel2"
+                           styleName="{res.style.blackText}"/>
+            </gwt:VerticalPanel>
+
+        </div>
+
+
+    </gwt:HTMLPanel>
+
+
+</ui:UiBinder>

@@ -1,0 +1,5 @@
+language: java
+sudo: false # faster builds
+jdk:
+  - oraclejdk7
+script: mvn clean install tomcat7:run-war-only
