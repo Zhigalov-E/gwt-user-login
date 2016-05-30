@@ -6,7 +6,7 @@ import com.google.gwt.junit.client.GWTTestCase;
 
 import java.util.Date;
 
-public class TimeMessagerEnTest extends GWTTestCase {
+public class TimeMessagerEngTest extends GWTTestCase {
     private static  final String SOME_TIME =  "12:00:00.000";
 
     /**
