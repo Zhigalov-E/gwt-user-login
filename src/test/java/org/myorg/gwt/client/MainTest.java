@@ -1,7 +1,12 @@
 package org.myorg.gwt.client;
 
+
+import com.google.gwt.i18n.shared.DateTimeFormat;
+
 import org.myorg.gwt.client.rpc.LoginRpcService;
 import org.myorg.gwt.client.rpc.LoginRpcServiceAsync;
+import org.myorg.gwt.client.utils.TimeBorder;
+
 import org.myorg.gwt.shared.FieldVerifier;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.junit.client.GWTTestCase;
@@ -9,16 +14,18 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import org.myorg.gwt.shared.UserDTO;
 
+import java.util.Date;
+
 /**
  * GWT JUnit tests must extend GWTTestCase.
  */
-public class GWTUserTest extends GWTTestCase {
+public class MainTest extends GWTTestCase {
 
     /**
      * Must refer to a valid module that sources this class.
      */
     public String getModuleName() {
-        return "org.myorg.gwt.GWTUserJUnit";
+        return "org.myorg.gwt.MainJUnit";
     }
 
     /**
@@ -32,6 +39,30 @@ public class GWTUserTest extends GWTTestCase {
         assertFalse(FieldVerifier.isValidName("abc"));
         assertTrue(FieldVerifier.isValidName("abcd"));
     }
+
+    /**
+     * Tests the TimeBorder.
+     */
+    public  void testTimeBorder(){
+        checkTimePeriod("06:00:00.000", TimeBorder.Border.MORNING);
+        checkTimePeriod("08:59:59.999", TimeBorder.Border.MORNING);
+        checkTimePeriod("09:00:00.000", TimeBorder.Border.DAY);
+        checkTimePeriod("18:59:59.999", TimeBorder.Border.DAY);
+        checkTimePeriod("19:00:00.000", TimeBorder.Border.EVENING);
+        checkTimePeriod("22:59:59.999", TimeBorder.Border.EVENING);
+        checkTimePeriod("23:00:00.000", TimeBorder.Border.NIGHT);
+        checkTimePeriod("05:59:59.999", TimeBorder.Border.NIGHT);
+    }
+
+
+    private static void checkTimePeriod(String time, TimeBorder.Border timeBorderExpected){
+        Date date = DateTimeFormat.getFormat("HH:mm:ss.S").parse(time);
+        TimeBorder.Border timeBorder = TimeBorder.getBorder(date);
+        assertEquals(timeBorder, timeBorderExpected);
+    }
+
+
+
 
     /**
      * This test will send a request to the server using the login method in
