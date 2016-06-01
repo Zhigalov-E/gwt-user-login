@@ -1,17 +1,14 @@
 package org.myorg.gwt.client.utils;
 
-
 import com.google.gwt.core.client.GWT;
 import org.myorg.gwt.client.i18n.Message;
 
 import java.util.Date;
 
+
 public class TimeMessager {
-
     private static TimeMessager instance;
-
     private final Message messageResourse;
-
 
     public static TimeMessager getInstance() {
         if (instance == null) {
@@ -23,7 +20,6 @@ public class TimeMessager {
     private TimeMessager() {
         this.messageResourse = GWT.create(Message.class);
     }
-
 
     public String getMessageResouse(Date date) {
         TimeBorder.Border dayPart = TimeBorder.getBorder(date);

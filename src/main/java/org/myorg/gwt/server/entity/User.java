@@ -4,6 +4,7 @@ package org.myorg.gwt.server.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 
+
 @Entity
 @Table(name = "tbl_users", uniqueConstraints = {@UniqueConstraint(columnNames = "ID"), @UniqueConstraint(columnNames = "LOGIN")})
 public class User implements Serializable {
@@ -24,7 +25,8 @@ public class User implements Serializable {
         this.hashPwd = hashPwd;
     }
 
-    public User (){}
+    public User (){
+    }
 
     public int getId() {
         return id;

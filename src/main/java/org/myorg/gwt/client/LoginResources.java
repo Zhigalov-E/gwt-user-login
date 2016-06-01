@@ -3,10 +3,12 @@ package org.myorg.gwt.client;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
 
+
 public interface LoginResources extends ClientBundle {
-    /**
-     * Sample CssResource.
-     */
+
+    @Source("org/myorg/gwt/client/Login.css")
+    MyCss style();
+
     interface MyCss extends CssResource {
         String blackText();
 
@@ -21,7 +23,4 @@ public interface LoginResources extends ClientBundle {
         String loginForm();
 
     }
-
-    @Source("org/myorg/gwt/client/Login.css")
-    MyCss style();
 }

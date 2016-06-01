@@ -12,34 +12,15 @@ import org.myorg.gwt.client.i18n.AppMessages;
 
 
 public class LoginView extends Composite {
+    private static final int MIN_PASSWORD_LEN = 2;
+    private static final int MIN_LOGIN_LEN = 2;
+
     private static LoginUiBinder uiBinder = GWT.create(LoginUiBinder.class);
-
-    private static int MIN_PASSWORD_LEN = 2;
-    private static int MIN_LOGIN_LEN = 2;
-
-    /*
-    * @UiTemplate is not mandatory but allows multiple XML templates
-    * to be used for the same widget.
-    * Default file loaded will be <class-name>.ui.xml
-    */
-    @UiTemplate("LoginView.ui.xml")
-    interface LoginUiBinder extends UiBinder<Widget, LoginView> {
-
-    }
-
+    private Boolean tooShort = true;
     @UiField(provided = true)
     final LoginResources res;
-
     @UiField(provided = true)
     final AppMessages i18n;
-
-    public LoginView() {
-        this.res = GWT.create(LoginResources.class);
-        this.i18n = GWT.create(AppMessages.class);
-        res.style().ensureInjected();
-        initWidget(uiBinder.createAndBindUi(this));
-    }
-
     @UiField
     TextBox loginBox;
     @UiField
@@ -51,8 +32,12 @@ public class LoginView extends Composite {
     @UiField
     Button buttonSubmit;
 
-    private Boolean tooShort = true;
-
+    public LoginView() {
+        this.res = GWT.create(LoginResources.class);
+        this.i18n = GWT.create(AppMessages.class);
+        res.style().ensureInjected();
+        initWidget(uiBinder.createAndBindUi(this));
+    }
 
     @UiHandler("loginBox")
     public void onValueChangeLoginBox(ValueChangeEvent<String> valueChangeEvent) {
@@ -76,8 +61,6 @@ public class LoginView extends Composite {
         }
     }
 
-
-
     public void showLogin() {
         RootPanel.get().add(this);
     }
@@ -88,7 +71,6 @@ public class LoginView extends Composite {
         passwordBox.setValue("");
         this.tooShort = true;
     }
-
 
     private boolean checkLoginLength(String login) {
         boolean result = false;
@@ -106,25 +88,12 @@ public class LoginView extends Composite {
         return result;
     }
 
-
-    public Button getButtonSubmit() {
-        return buttonSubmit;
+    public static LoginUiBinder getUiBinder() {
+        return uiBinder;
     }
 
-    public Label getCompletionLabel2() {
-        return completionLabel2;
-    }
-
-    public Label getCompletionLabel1() {
-        return completionLabel1;
-    }
-
-    public TextBox getPasswordBox() {
-        return passwordBox;
-    }
-
-    public TextBox getLoginBox() {
-        return loginBox;
+    public static void setUiBinder(LoginUiBinder uiBinder) {
+        LoginView.uiBinder = uiBinder;
     }
 
     public LoginResources getRes() {
@@ -137,5 +106,53 @@ public class LoginView extends Composite {
 
     public Boolean getTooShort() {
         return tooShort;
+    }
+
+    public void setTooShort(Boolean tooShort) {
+        this.tooShort = tooShort;
+    }
+
+    public TextBox getLoginBox() {
+        return loginBox;
+    }
+
+    public void setLoginBox(TextBox loginBox) {
+        this.loginBox = loginBox;
+    }
+
+    public TextBox getPasswordBox() {
+        return passwordBox;
+    }
+
+    public void setPasswordBox(TextBox passwordBox) {
+        this.passwordBox = passwordBox;
+    }
+
+    public Label getCompletionLabel1() {
+        return completionLabel1;
+    }
+
+    public void setCompletionLabel1(Label completionLabel1) {
+        this.completionLabel1 = completionLabel1;
+    }
+
+    public Label getCompletionLabel2() {
+        return completionLabel2;
+    }
+
+    public void setCompletionLabel2(Label completionLabel2) {
+        this.completionLabel2 = completionLabel2;
+    }
+
+    public Button getButtonSubmit() {
+        return buttonSubmit;
+    }
+
+    public void setButtonSubmit(Button buttonSubmit) {
+        this.buttonSubmit = buttonSubmit;
+    }
+
+    @UiTemplate("LoginView.ui.xml")
+    interface LoginUiBinder extends UiBinder<Widget, LoginView> {
     }
 }

@@ -5,6 +5,7 @@ import org.myorg.gwt.shared.UserDTO;
 
 
 public interface LoginRpcServiceAsync {
+
     void loginServer(String login, String password, AsyncCallback<UserDTO> asyncCallback);
 
     void loginFromSessionServer(AsyncCallback<UserDTO> asyncCallback);

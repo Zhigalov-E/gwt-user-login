@@ -18,9 +18,7 @@ import java.util.logging.Logger;
 
 
 public class LoginEndPoint implements EntryPoint {
-    // instantiates a logger
-    private static final Logger rootLogger = Logger.getLogger(LoginEndPoint.class.getName());
-
+    private static final Logger LOGGER = Logger.getLogger(LoginEndPoint.class.getName());
     private LoginView loginView = GWT.create(LoginView.class);
     private HomePageView homeView = GWT.create(HomePageView.class);
 
@@ -30,35 +28,33 @@ public class LoginEndPoint implements EntryPoint {
             @Override
             public void onClick(ClickEvent clickEvent) {
                 if (loginView.getTooShort()) {
-                    rootLogger.log(Level.WARNING, "Login or password too short.");
+                    LOGGER.log(Level.WARNING, "Login or password too short.");
                     Window.alert(loginView.getI18n().loginOrPwd2Short());
                 } else {
-                    rootLogger.log(Level.INFO, "Send user auth data to server.");
+                    LOGGER.log(Level.INFO, "Send user auth data to server.");
                     sendToServer(loginView.getLoginBox().getValue(), loginView.getPasswordBox().getValue());
                 }
             }
         });
-
         homeView.getLogOut().addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
                 LoginRpcService.Util.getInstance().logout(new AsyncCallback() {
                     @Override
                     public void onFailure(Throwable throwable) {
-                        rootLogger.log(Level.SEVERE, "Error with logout operation.");
+                        LOGGER.log(Level.SEVERE, "Error with logout operation.");
                         Window.alert(loginView.getI18n().logoutProblem());
                     }
 
                     @Override
                     public void onSuccess(Object o) {
-                        rootLogger.log(Level.INFO, "Logout DONE.");
+                        LOGGER.log(Level.INFO, "Logout DONE.");
                         RootPanel.get().clear();
                         loginView.showLogin();
                     }
                 });
             }
         });
-
         String sessionID = Cookies.getCookie("sid");
         if (sessionID == null) {
             loginView.showLogin();
@@ -72,7 +68,7 @@ public class LoginEndPoint implements EntryPoint {
             @Override
             public void onSuccess(UserDTO result) {
                 if (result.getLoggedIn()) {
-                    rootLogger.log(Level.INFO, "Success login operation.");
+                    LOGGER.log(Level.INFO, "Success login operation.");
                     // load the home app page
                     showHomePage(result);
                     //set session cookie for 1 day expiry.
@@ -81,35 +77,24 @@ public class LoginEndPoint implements EntryPoint {
                     Date expires = new Date(System.currentTimeMillis() + DURATION);
                     Cookies.setCookie("sid", sessionID, expires, null, "/", false);
                 } else {
-                    rootLogger.log(Level.WARNING, "Access Denied. Wrong login or password.");
+                    LOGGER.log(Level.WARNING, "Access Denied. Wrong login or password.");
                     Window.alert(loginView.getI18n().accessDenied());
                 }
             }
 
             @Override
             public void onFailure(Throwable caught) {
-                rootLogger.log(Level.SEVERE, "Error with login operation.", caught);
+                LOGGER.log(Level.SEVERE, "Error with login operation.", caught);
                 Window.alert(loginView.getI18n().accessDenied());
             }
         });
     }
 
-
-    public void showHomePage(UserDTO userDTO) {
-        loginView.clearLogin();
-        String greeting = TimeMessager.getInstance().getMessageResouse(new Date());
-        String userGreeting = homeView.getI18n().userGreeting(greeting, userDTO.getName());
-        homeView.getUserGreeting().setText(userGreeting);
-        // Add to the root panel.
-        RootPanel.get().add(homeView);
-    }
-
-
     private void checkWithServerIfSessionIdIsStillLegal() {
         LoginRpcService.Util.getInstance().loginFromSessionServer(new AsyncCallback<UserDTO>() {
             @Override
             public void onFailure(Throwable caught) {
-                rootLogger.log(Level.SEVERE, "Error with check login session.", caught);
+                LOGGER.log(Level.SEVERE, "Error with check login session.", caught);
                 loginView.showLogin();
             }
 
@@ -119,10 +104,10 @@ public class LoginEndPoint implements EntryPoint {
                     loginView.showLogin();
                 } else {
                     if (result.getLoggedIn()) {
-                        rootLogger.log(Level.INFO, "Go to home page, user session is still valid.");
+                        LOGGER.log(Level.INFO, "Go to home page, user session is still valid.");
                         showHomePage(result);
                     } else {
-                        rootLogger.log(Level.INFO, "User session has expired.");
+                        LOGGER.log(Level.INFO, "User session has expired.");
                         loginView.showLogin();
                     }
                 }
@@ -131,4 +116,12 @@ public class LoginEndPoint implements EntryPoint {
         });
     }
 
+    public void showHomePage(UserDTO userDTO) {
+        loginView.clearLogin();
+        String greeting = TimeMessager.getInstance().getMessageResouse(new Date());
+        String userGreeting = homeView.getI18n().userGreeting(greeting, userDTO.getName());
+        homeView.getUserGreeting().setText(userGreeting);
+        // Add to the root panel.
+        RootPanel.get().add(homeView);
+    }
 }

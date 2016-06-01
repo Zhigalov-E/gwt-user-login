@@ -12,42 +12,50 @@ import com.google.gwt.user.client.ui.Widget;
 import org.myorg.gwt.client.i18n.AppMessages;
 
 public class HomePageView extends Composite {
-    private static HomePageView.LoginUiBinder uiBinder = GWT.create(HomePageView.LoginUiBinder.class);
-
-    /*
-    * @UiTemplate is not mandatory but allows multiple XML templates
-    * to be used for the same widget.
-    * Default file loaded will be <class-name>.ui.xml
-    */
-    @UiTemplate("HomePageView.ui.xml")
-    interface LoginUiBinder extends UiBinder<Widget, HomePageView> {
-    }
-
-
+    private static HomePageView.LoginUiBinder uiBinder = GWT
+            .create(HomePageView.LoginUiBinder.class);
     @UiField(provided = true)
     final AppMessages i18n;
-
+    @UiField
+    Anchor logOut;
+    @UiField
+    Label userGreeting;
 
     public HomePageView() {
         this.i18n = GWT.create(AppMessages.class);
         initWidget(uiBinder.createAndBindUi(this));
     }
 
-    @UiField
-    Anchor logOut;
-    @UiField
-    Label userGreeting;
+    public static LoginUiBinder getUiBinder() {
+        return uiBinder;
+    }
 
-    public Anchor getLogOut() {
-        return logOut;
+    public static void setUiBinder(LoginUiBinder uiBinder) {
+        HomePageView.uiBinder = uiBinder;
     }
 
     public Label getUserGreeting() {
         return userGreeting;
     }
 
+    public void setUserGreeting(Label userGreeting) {
+        this.userGreeting = userGreeting;
+    }
+
+    public Anchor getLogOut() {
+        return logOut;
+    }
+
+    public void setLogOut(Anchor logOut) {
+        this.logOut = logOut;
+    }
+
     public AppMessages getI18n() {
         return i18n;
+    }
+
+    @UiTemplate("HomePageView.ui.xml")
+    interface LoginUiBinder extends UiBinder<Widget, HomePageView> {
     }
 }
 

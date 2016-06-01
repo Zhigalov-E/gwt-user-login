@@ -1,9 +1,10 @@
 package org.myorg.gwt.shared;
 
-
 import java.io.Serializable;
 
+
 public class UserDTO implements Serializable {
+
     private String sessionId;
     private Boolean loggedIn;
     private String name;

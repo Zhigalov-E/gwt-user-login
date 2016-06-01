@@ -1,6 +1,5 @@
 package org.myorg.gwt.server.utils;
 
-
 import org.mindrot.jbcrypt.BCrypt;
 
 
@@ -11,7 +10,6 @@ public class PasswordEncryptionService  {
     }
 
     public static String getEncryptedPassword(String password) {
-
         return BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
