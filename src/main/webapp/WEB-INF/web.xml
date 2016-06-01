@@ -4,7 +4,9 @@
               http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5"
          xmlns="http://java.sun.com/xml/ns/javaee">
-
+  <listener>
+    <listener-class>org.myorg.gwt.server.utils.HibernateListener</listener-class>
+  </listener>
   <!-- Servlets -->
   <servlet>
     <servlet-name>greetServlet</servlet-name>
