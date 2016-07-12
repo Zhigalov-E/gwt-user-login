@@ -9,19 +9,9 @@
   </listener>
   <!-- Servlets -->
   <servlet>
-    <servlet-name>greetServlet</servlet-name>
-    <servlet-class>org.myorg.gwt.server.GreetingServiceImpl</servlet-class>
-  </servlet>
-
-  <servlet>
     <servlet-name>loginServlet</servlet-name>
     <servlet-class>org.myorg.gwt.server.LoginRpcServiceImpl</servlet-class>
   </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>greetServlet</servlet-name>
-    <url-pattern>/gwtuser/greet</url-pattern>
-  </servlet-mapping>
 
   <servlet-mapping>
     <servlet-name>loginServlet</servlet-name>
